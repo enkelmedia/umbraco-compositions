@@ -1,21 +1,10 @@
-﻿using Umbraco.Cms.Core.Composing;
-using Umbraco.Cms.Core.DependencyInjection;
+﻿using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
 
 namespace UmbracoDocTypeToolbox.App_Plugins.DocTypeToolbox;
-
-public class Composer : IComposer
-{
-    public void Compose(IUmbracoBuilder builder)
-    {
-        builder.AddNotificationHandler<MenuRenderingNotification, TreeNotificationHandler>();
-
-        builder.Services.AddTransient<ApplyCompositionRequestHandler>();
-    }
-}
 
 public class TreeNotificationHandler : INotificationHandler<MenuRenderingNotification>
 {
