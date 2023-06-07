@@ -1,0 +1,51 @@
+﻿<div class="umb-dialog" ng-controller="Umbraco.Community.DocTypeToolbox as vm">
+    
+    <div class="umb-dialog-body">
+        <div class="umb-pane">
+
+            <h2>Apply Composition</h2>
+            <p><strong>Take a backup first!</strong></p>
+            <p>Use this to apply a composition to a content type even when the content type 
+                already contains one or more of the properties in the composition. This operation will 
+                move any data stored for these properties to the composition-properties.<br/>
+                <br/>
+                <strong>Be aware!</strong> If you're using technologies to sync data (like UmbracoDeploy or uSync) this operation might cause issues as underlying Property Types are changed and removed.
+            </p>
+
+            <select ng-model="vm.compositionId" required>
+                <option value="">-- Choose composition --</option>
+                <option ng-repeat="opt in vm.compositionContentTypes" value="{{opt.id}}" ng-disabled="opt.enabled == false">{{opt.name}} ({{opt.alias}})</option>
+            </select>
+
+            <umb-loader ng-show="busy"></umb-loader>
+
+            <div ng-show="error">
+                <div class="alert alert-error">
+                    <div><strong>{{error.errorMsg}}</strong></div>
+                    <div>{{error.data.message}}</div>
+                </div>
+            </div>
+
+            <div ng-show="vm.success">
+                <div class="alert alert-success">
+                    {{vm.successMessage}}
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="vm.close()">Ok</button>
+            </div>
+
+            <div ng-hide="success">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="umb-dialog-footer btn-toolbar umb-btn-toolbar" ng-hide="success">
+        <button type="button" class="btn btn-link" ng-click="vm.close()" ng-show="!busy">
+            <localize key="general_cancel">Cancel</localize>
+        </button>
+        <button class="btn btn-primary" ng-click="vm.append()" ng-disabled="vm.compositionId == ''">
+            Configure Composition
+        </button>
+    </div>
+
+</div>
